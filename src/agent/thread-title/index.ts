@@ -30,6 +30,7 @@ export const generateTitle = async (
     }),
   };
 
+  config.configurable.customModelName = "azure/gpt-4o";
   const baseModel = await getModelFromConfig(config, {
     temperature: 0,
   });
