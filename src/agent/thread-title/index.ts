@@ -6,7 +6,7 @@ import {
 import { Client } from "@langchain/langgraph-sdk";
 // import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
-import { getModelFromConfig } from "@/agent/utils";
+import { getModelFromConfig } from "../utils";
 import { getArtifactContent } from "../../contexts/utils";
 import { isArtifactMarkdownContent } from "../../lib/artifact_content_types";
 import { TITLE_SYSTEM_PROMPT, TITLE_USER_PROMPT } from "./prompts";
@@ -30,9 +30,10 @@ export const generateTitle = async (
     }),
   };
 
-  const model = await getModelFromConfig(config, {
+  const baseModel = await getModelFromConfig(config, {
     temperature: 0,
-  }).bindTools([generateTitleTool], {
+  });
+  const model = baseModel.bindTools([generateTitleTool], {
     tool_choice: "generate_title",
   });
 

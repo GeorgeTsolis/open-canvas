@@ -27,9 +27,9 @@ export const DEFAULT_INPUTS = {
 
 export const AZURE_MODELS = [
   {
-    name: "azure/gpt-4o-mini",
-    modelName: "gpt-4o-mini",
-    label: "GPT-4o mini (Azure)",
+    name: "azure/gpt-4o",
+    modelName: "gpt-4o",
+    label: "GPT-4o (Azure)",
     isNew: false,
   },
 ];
@@ -73,7 +73,7 @@ export const GEMINI_MODELS = [
     isNew: false,
   },
 ];
-export const DEFAULT_MODEL_NAME: ALL_MODEL_NAMES = "gpt-4o-mini";
+export const DEFAULT_MODEL_NAME: ALL_MODEL_NAMES = "azure/gpt-4o";
 export type OPENAI_MODEL_NAMES = (typeof OPENAI_MODELS)[number]["name"];
 export type ANTHROPIC_MODEL_NAMES = (typeof ANTHROPIC_MODELS)[number]["name"];
 export type FIREWORKS_MODEL_NAMES = (typeof FIREWORKS_MODELS)[number]["name"];

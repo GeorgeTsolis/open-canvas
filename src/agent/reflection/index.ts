@@ -1,4 +1,4 @@
-import { ChatAnthropic } from "@langchain/anthropic";
+// import { ChatAnthropic } from "@langchain/anthropic";
 import {
   type LangGraphRunnableConfig,
   StateGraph,
@@ -8,7 +8,7 @@ import { ReflectionGraphAnnotation, ReflectionGraphReturnType } from "./state";
 import { Reflections } from "../../types";
 import { REFLECT_SYSTEM_PROMPT, REFLECT_USER_PROMPT } from "./prompts";
 import { z } from "zod";
-import { ensureStoreInConfig, formatReflections } from "../utils";
+import { ensureStoreInConfig, getModelFromConfig, formatReflections } from "../utils";
 import { getArtifactContent } from "../../contexts/utils";
 import { isArtifactMarkdownContent } from "../../lib/artifact_content_types";
 
@@ -42,12 +42,19 @@ export const reflect = async (
     }),
   };
 
-  const model = new ChatAnthropic({
-    model: "claude-3-5-sonnet-20240620",
+  const baseModel = await getModelFromConfig(config, {
     temperature: 0,
-  }).bindTools([generateReflectionTool], {
+  });
+  const model = baseModel.bindTools([generateReflectionTool], {
     tool_choice: "generate_reflections",
   });
+
+  // const model = new ChatAnthropic({
+  //   model: "claude-3-5-sonnet-20240620",
+  //   temperature: 0,
+  // }).bindTools([generateReflectionTool], {
+  //   tool_choice: "generate_reflections",
+  // });
 
   const currentArtifactContent = state.artifact
     ? getArtifactContent(state.artifact)
