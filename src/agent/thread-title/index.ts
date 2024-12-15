@@ -6,10 +6,7 @@ import {
 import { Client } from "@langchain/langgraph-sdk";
 // import { ChatOpenAI } from "@langchain/openai";
 import { z } from "zod";
-import {
-  getModelFromConfig,
-  getModelConfig,
-} from "@/agent/utils";
+import { getModelFromConfig } from "@/agent/utils";
 import { getArtifactContent } from "../../contexts/utils";
 import { isArtifactMarkdownContent } from "../../lib/artifact_content_types";
 import { TITLE_SYSTEM_PROMPT, TITLE_USER_PROMPT } from "./prompts";
@@ -25,8 +22,6 @@ export const generateTitle = async (
     throw new Error("open_canvas_thread_id not found in configurable");
   }
 
-  const { modelName } = getModelConfig(config);
-  
   const generateTitleTool = {
     name: "generate_title",
     description: "Generate a concise title for the conversation.",
